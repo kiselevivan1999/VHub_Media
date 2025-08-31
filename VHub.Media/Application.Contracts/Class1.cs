@@ -1,4 +1,4 @@
-﻿namespace Application.Contractors
+﻿namespace Application.Contracts
 {
     public class Class1
     {

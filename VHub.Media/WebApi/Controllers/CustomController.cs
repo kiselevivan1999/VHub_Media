@@ -6,4 +6,5 @@ namespace WebApi.Controllers;
 [Route("[controller]")]
 public class CustomController : ControllerBase
 {
+
 }
