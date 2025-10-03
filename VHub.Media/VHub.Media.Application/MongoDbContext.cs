@@ -2,8 +2,8 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Events;
-using VHub.Media.Domain.Data.Movies;
-using VHub.Media.Domain.Data.Persons;
+using VHub.Media.Domain.Movies;
+using VHub.Media.Domain.Persons;
 
 namespace VHub.Media.Application;
 

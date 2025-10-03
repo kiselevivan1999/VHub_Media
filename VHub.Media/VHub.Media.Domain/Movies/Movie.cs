@@ -1,8 +1,7 @@
-﻿using VHub.Media.Domain.Data.Enums;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace VHub.Media.Domain.Data.Movies;
+namespace VHub.Media.Domain.Movies;
 
 /// <summary>
 /// Фильм.
@@ -17,21 +16,21 @@ public class Movie
     [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
 
-	/// <summary>
-	/// Название.
-	/// </summary>
-	[BsonRequired]
-	public string Title { get; set; }
+    /// <summary>
+    /// Название.
+    /// </summary>
+    [BsonRequired]
+    public string Title { get; set; }
 
     /// <summary>
     /// Оригинальное название.
     /// </summary>
     public string? OriginalTitle { get; set; }
 
-	/// <summary>
-	/// Длительность в минутах.
-	/// </summary>
-	public short? DurationInMinutes { get; set; }
+    /// <summary>
+    /// Длительность в минутах.
+    /// </summary>
+    public short? DurationInMinutes { get; set; }
 
     /// <summary>
     /// Описание.
@@ -43,33 +42,33 @@ public class Movie
     /// </summary>
     public string? Slogan { get; set; }
 
-	/// <summary>
-	/// Страна-производитель.
-	/// </summary>
-	[BsonRequired]
-	public string[] Countries { get; set; }
+    /// <summary>
+    /// Страна-производитель.
+    /// </summary>
+    [BsonRequired]
+    public string[] Countries { get; set; }
 
-	/// <summary>
-	/// Дата выхода.
-	/// </summary>
-	[BsonRequired]
-	public DateOnly ReleaseDate { get; set; }
+    /// <summary>
+    /// Дата выхода.
+    /// </summary>
+    [BsonRequired]
+    public DateOnly ReleaseDate { get; set; }
 
     /// <summary>
     /// Бюджет.
     /// </summary>
     public decimal? Budget { get; set; }
 
-	/// <summary>
-	/// Жанры.
-	/// </summary>
-	[BsonRequired]
-	public Genre[] Genres { get; set; }
+    /// <summary>
+    /// Жанры.
+    /// </summary>
+    [BsonRequired]
+    public Genre[] Genres { get; set; }
 
-	/// <summary>
-	/// Возрастной рейтинг.
-	/// </summary>
-	public string? AgeRating { get; set; }
+    /// <summary>
+    /// Возрастной рейтинг.
+    /// </summary>
+    public string? AgeRating { get; set; }
 
     /// <summary>
     /// Средняя оценка.
@@ -81,16 +80,16 @@ public class Movie
     /// </summary>
     public string? RatingMpaa { get; set; }
 
-	/// <summary>
-	/// Является сериалом.
-	/// </summary>
-	public bool? IsSerial { get; set; }
+    /// <summary>
+    /// Является сериалом.
+    /// </summary>
+    public bool? IsSerial { get; set; }
 
     /// <summary>
     /// Путь к постеру.
     /// </summary>
     [BsonRequired]
-	public string PosterPath { get; set; }
+    public string PosterPath { get; set; }
 
     /// <summary>
     /// Путь к трейлеру.
@@ -106,5 +105,5 @@ public class Movie
     /// Персоны, к которым относится этот фильм.
     /// </summary>
     [BsonRequired]
-	public PersonInfo[] Persons { get; set; }
+    public PersonInfo[] Persons { get; set; }
 }

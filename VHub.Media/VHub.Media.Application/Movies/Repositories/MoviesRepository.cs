@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Linq.Expressions;
-using VHub.Media.Application.Contracts.Data.Movies;
+using VHub.Media.Application.Contracts.Movies.Dto;
 using VHub.Media.Application.Movies.Mappers;
-using VHub.Media.Domain.Data.Movies;
-using VHub.Media.Domain.Data.Persons;
+using VHub.Media.Domain.Movies;
+using VHub.Media.Domain.Persons;
 
 namespace VHub.Media.Application.Movies.Repositories;
 
@@ -99,7 +99,7 @@ internal class MoviesRepository : IMoviesRepository
 				Title = movie.Title,
 				PosterPath = movie.PosterPath,
 				ReleaseYear = movie.ReleaseDate.Year,
-				MainGenre = (Domain.Data.Enums.Genre)movie.Genres.First(), //todo Логика определения главного жанра фильма.
+				MainGenre = (Genre)movie.Genres.First(), //todo Логика определения главного жанра фильма.
 			};
 			var update = Builders<Person>.Update.Push(p => p.Movies, movieInfo);
 			var updateOptions = new UpdateOptions

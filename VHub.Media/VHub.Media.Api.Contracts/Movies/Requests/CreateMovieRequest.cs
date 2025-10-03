@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VHub.Media.Api.Contracts.Enums;
 using VHub.Media.Api.Contracts.Movies.Dto;
+using VHub.Media.Api.Contracts.Movies.Enums;
 
 namespace VHub.Media.Api.Contracts.Movies.Requests;
 

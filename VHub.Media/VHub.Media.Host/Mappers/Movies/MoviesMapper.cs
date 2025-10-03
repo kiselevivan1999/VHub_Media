@@ -1,17 +1,19 @@
-﻿using VHub.Media.Api.Contracts.Enums;
+﻿using Mapster;
 using VHub.Media.Api.Contracts.Movies.Dto;
+using VHub.Media.Api.Contracts.Movies.Enums;
 using VHub.Media.Api.Contracts.Movies.Requests;
 using VHub.Media.Api.Contracts.Movies.Responses;
+using VHub.Media.Api.Contracts.Persons.Enums;
 
 namespace VHub.Media.Host.Mappers.Movies;
 
 
 internal class MoviesMapper : IMoviesMapper
 {
-	public Application.Contracts.Data.Movies.MovieDto Map(CreateMovieRequest source) =>
+	public Application.Contracts.Movies.Dto.MovieDto Map(CreateMovieRequest source) =>
 		source == null
 		? throw new ArgumentNullException(nameof(source))
-		: new Application.Contracts.Data.Movies.MovieDto
+		: new Application.Contracts.Movies.Dto.MovieDto
 		{
 			Title = source.Title,
 			OriginalTitle = source.OriginalTitle,
@@ -21,7 +23,7 @@ internal class MoviesMapper : IMoviesMapper
 			Countries = source.Countries,
 			ReleaseDate = source.ReleaseDate,
 			Budget = source.Budget,
-			Genres = source.Genres.Select(x => (Application.Contracts.Data.Enums.Genre)x).ToArray(),
+			Genres = source.Genres.Select(x => (Application.Contracts.Movies.Enums.Genre)x).ToArray(),
 			AgeRating = source.AgeRating,
 			AverageRating = source.AverageRating,
 			RatingMpaa = source.RatingMpaa,
@@ -32,10 +34,10 @@ internal class MoviesMapper : IMoviesMapper
 			Persons = source.Persons.Select(Map).ToArray(),
 		};
 
-	public Application.Contracts.Data.Movies.MovieDto Map(UpdateMovieRequest source) =>
+	public Application.Contracts.Movies.Dto.MovieDto Map(UpdateMovieRequest source) =>
 		source == null
 		? throw new ArgumentNullException(nameof(source))
-		: new Application.Contracts.Data.Movies.MovieDto
+		: new Application.Contracts.Movies.Dto.MovieDto
 		{
 			Id = source.Id,
 			DurationInMinutes = source.DurationInMinutes,
@@ -49,7 +51,7 @@ internal class MoviesMapper : IMoviesMapper
 			Platforms = source.Platforms,
 		};
 
-	public GetMovieResponse Map(Application.Contracts.Data.Movies.MovieDto source) =>
+	public GetMovieResponse Map(Application.Contracts.Movies.Dto.MovieDto source) =>
 		source == null
 		? null
 		: new GetMovieResponse()
@@ -74,7 +76,7 @@ internal class MoviesMapper : IMoviesMapper
 			Persons = source.Persons.Select(Map).ToArray(),
 		};
 
-	public PersonInfoDto Map(Application.Contracts.Data.Movies.PersonInfoDto source) =>
+	public PersonInfoDto Map(Application.Contracts.Movies.Dto.PersonInfoDto source) =>
 		source == null
 		? null
 		: new PersonInfoDto
@@ -85,13 +87,13 @@ internal class MoviesMapper : IMoviesMapper
 			CharacterName = source.CharacterName,
 		};
 
-	public Application.Contracts.Data.Movies.PersonInfoDto Map(PersonInfoDto source) =>
+	public Application.Contracts.Movies.Dto.PersonInfoDto Map(PersonInfoDto source) =>
 		source == null
 		? null
-		: new Application.Contracts.Data.Movies.PersonInfoDto
+		: new Application.Contracts.Movies.Dto.PersonInfoDto
 		{
 			Id = source.Id,
-			Type = (Application.Contracts.Data.Enums.PersonType)source.Type,
+			Type = (Application.Contracts.Persons.Enums.PersonType)source.Type,
 			FullName = source.FullName,
 			CharacterName = source.CharacterName,
 		};

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VHub.Media.Api.Contracts.Enums;
+using VHub.Media.Api.Contracts.Persons.Enums;
 
 namespace VHub.Media.Api.Contracts.Movies.Dto;
 

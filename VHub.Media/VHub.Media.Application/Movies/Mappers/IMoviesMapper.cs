@@ -1,5 +1,5 @@
-﻿using VHub.Media.Application.Contracts.Data.Movies;
-using VHub.Media.Domain.Data.Movies;
+﻿using VHub.Media.Application.Contracts.Movies.Dto;
+using VHub.Media.Domain.Movies;
 
 namespace VHub.Media.Application.Movies.Mappers;
 

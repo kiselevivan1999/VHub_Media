@@ -1,4 +1,5 @@
-﻿using VHub.Media.Application.Contracts.Data.Movies;
+﻿using VHub.Media.Application.Contracts.Movies.Dto;
+using VHub.Media.Application.Contracts.Movies.Requests;
 using VHub.Media.Application.Movies.Repositories;
 
 namespace VHub.Media.Application.Movies.Handlers;

@@ -1,8 +1,8 @@
 ﻿using MongoDB.Driver;
 using System.Linq.Expressions;
-using VHub.Media.Application.Contracts.Data.Persons;
+using VHub.Media.Application.Contracts.Persons.Dto;
 using VHub.Media.Application.Persons.Mappers;
-using VHub.Media.Domain.Data.Persons;
+using VHub.Media.Domain.Persons;
 
 namespace VHub.Media.Application.Persons.Repositories;
 

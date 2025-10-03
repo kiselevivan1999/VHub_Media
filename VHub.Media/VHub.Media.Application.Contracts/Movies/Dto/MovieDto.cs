@@ -1,6 +1,6 @@
-﻿using VHub.Media.Application.Contracts.Data.Enums;
+﻿using VHub.Media.Application.Contracts.Movies.Enums;
 
-namespace VHub.Media.Application.Contracts.Data.Movies;
+namespace VHub.Media.Application.Contracts.Movies.Dto;
 
 /// <summary>
 /// Фильм.
@@ -12,20 +12,20 @@ public class MovieDto
     /// </summary>
     public string? Id { get; set; }
 
-	/// <summary>
-	/// Название.
-	/// </summary>
-	public string Title { get; set; }
+    /// <summary>
+    /// Название.
+    /// </summary>
+    public string Title { get; set; }
 
     /// <summary>
     /// Оригинальное название.
     /// </summary>
     public string? OriginalTitle { get; set; }
 
-	/// <summary>
-	/// Длительность в минутах.
-	/// </summary>
-	public short? DurationInMinutes { get; set; }
+    /// <summary>
+    /// Длительность в минутах.
+    /// </summary>
+    public short? DurationInMinutes { get; set; }
 
     /// <summary>
     /// Описание.
@@ -37,10 +37,10 @@ public class MovieDto
     /// </summary>
     public string? Slogan { get; set; }
 
-	/// <summary>
-	/// Страна-производитель.
-	/// </summary>
-	public string[]? Countries { get; set; }
+    /// <summary>
+    /// Страна-производитель.
+    /// </summary>
+    public string[]? Countries { get; set; }
 
     /// <summary>
     /// Дата выхода.
@@ -52,15 +52,15 @@ public class MovieDto
     /// </summary>
     public decimal? Budget { get; set; }
 
-	/// <summary>
-	/// Жанры.
-	/// </summary>
-	public Genre[] Genres { get; set; }
+    /// <summary>
+    /// Жанры.
+    /// </summary>
+    public Genre[] Genres { get; set; }
 
-	/// <summary>
-	/// Возрастной рейтинг.
-	/// </summary>
-	public string? AgeRating { get; set; }
+    /// <summary>
+    /// Возрастной рейтинг.
+    /// </summary>
+    public string? AgeRating { get; set; }
 
     /// <summary>
     /// Средняя оценка.
@@ -72,10 +72,10 @@ public class MovieDto
     /// </summary>
     public string? RatingMpaa { get; set; }
 
-	/// <summary>
-	/// Является сериалом.
-	/// </summary>
-	public bool? IsSerial { get; set; }
+    /// <summary>
+    /// Является сериалом.
+    /// </summary>
+    public bool? IsSerial { get; set; }
 
     /// <summary>
     /// Путь к постеру.
@@ -92,8 +92,8 @@ public class MovieDto
     /// </summary>
 	public string[]? Platforms { get; set; }
 
-	/// <summary>
-	/// Персоны, к которым относится этот фильм.
-	/// </summary>
-	public PersonInfoDto[] Persons { get; set; }
+    /// <summary>
+    /// Персоны, к которым относится этот фильм.
+    /// </summary>
+    public PersonInfoDto[] Persons { get; set; }
 }

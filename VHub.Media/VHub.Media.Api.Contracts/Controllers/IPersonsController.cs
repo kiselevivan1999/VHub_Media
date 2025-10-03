@@ -1,16 +1,26 @@
-﻿using VHub.Media.Api.Contracts.Persons.Requests;
+﻿using RestEase;
+using System.ComponentModel.DataAnnotations;
+using VHub.Media.Api.Contracts.Persons.Requests;
 using VHub.Media.Api.Contracts.Persons.Responses;
 
 namespace VHub.Media.Api.Contracts.Controllers;
 
+[BasePath("media/persons")]
 public interface IPersonsController
 {
-	Task<string> CreatePersonAsync(CreatePersonRequest request, CancellationToken cancellationToken);
+	[Get("new")]
+	Task<string> CreatePersonAsync(
+		[Required, Body] CreatePersonRequest request, CancellationToken cancellationToken);
 
-	Task DeletePersonByIdAsync(string id, CancellationToken cancellationToken);
+	[Delete("delete/{id}")]
+	Task DeletePersonByIdAsync(
+		[Required, Path] string id, CancellationToken cancellationToken);
 
-	Task<GetPersonResponse> GetPersonByIdAsync(string id, CancellationToken cancellationToken);
+	[Get("{id}")]
+	Task<GetPersonResponse> GetPersonByIdAsync(
+		[Required, Path] string id, CancellationToken cancellationToken);
 
+	[Post("")]
 	Task<List<GetPersonResponse>> GetPersonsByFilterAsync(
-		GetPersonsByFilterRequest filter, CancellationToken cancellationToken);
+		[Body] GetPersonsByFilterRequest filter, CancellationToken cancellationToken);
 }

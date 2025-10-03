@@ -1,5 +1,7 @@
-﻿using VHub.Media.Application.Contracts.Data.Persons;
-using VHub.Media.Domain.Data.Persons;
+﻿using VHub.Media.Application.Contracts.Movies.Enums;
+using VHub.Media.Application.Contracts.Persons.Dto;
+using VHub.Media.Domain.Movies;
+using VHub.Media.Domain.Persons;
 
 namespace VHub.Media.Application.Persons.Mappers;
 
@@ -14,7 +16,7 @@ internal class PersonsMapper : IPersonsMapper
 			Title = source.Title,
 			PosterPath = source.PosterPath,
 			ReleaseYear = source.ReleaseYear,
-			MainGenre = (Contracts.Data.Enums.Genre)source.MainGenre,
+			MainGenre = (Contracts.Movies.Enums.Genre)source.MainGenre,
 		};
 
 	public MovieInfo Map(MovieInfoDto source) =>
@@ -26,7 +28,7 @@ internal class PersonsMapper : IPersonsMapper
 			Title = source.Title,
 			PosterPath = source.PosterPath,
 			ReleaseYear = source.ReleaseYear,
-			MainGenre = (Domain.Data.Enums.Genre)source.MainGenre,
+			MainGenre = (Domain.Movies.Genre)source.MainGenre,
 		};
 
 	public PersonDto Map(Person source) =>

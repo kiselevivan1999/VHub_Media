@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VHub.Media.Api.Contracts.Movies.Enums;
+﻿using VHub.Media.Application.Contracts.Movies.Enums;
 
-namespace VHub.Media.Api.Contracts.Persons.Dto;
+namespace VHub.Media.Application.Contracts.Persons.Dto;
 
 /// <summary>
 /// Информация о фильме.

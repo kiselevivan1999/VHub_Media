@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
 using VHub.Media.Api.Contracts.Controllers;
 using VHub.Media.Api.Contracts.Movies.Requests;
 using VHub.Media.Api.Contracts.Movies.Responses;
@@ -47,7 +46,7 @@ public class MoviesController : IMoviesController
 
 	[HttpPost("")]
 	public async Task<List<GetMovieResponse>> GetMoviesByFilterAsync(
-		[Required, FromBody] GetMoviesByFilterRequest filter, CancellationToken cancellationToken)
+		[FromBody] GetMoviesByFilterRequest filter, CancellationToken cancellationToken)
 	{
 		throw new NotImplementedException();
 		//var result = await _handler.GetMoviesByFilterAsync(_mapper.Map(filter), cancellationToken);
@@ -56,7 +55,7 @@ public class MoviesController : IMoviesController
 
 	[HttpPut("update")]
 	public async Task UpdateMovieAsync(
-		[FromBody] UpdateMovieRequest request, CancellationToken cancellationToken)
+		[Required, FromBody] UpdateMovieRequest request, CancellationToken cancellationToken)
 	{
 		await _handler.UpdateMovieWithPersonsAsync(_mapper.Map(request), cancellationToken);
 	}

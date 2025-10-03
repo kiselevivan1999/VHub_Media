@@ -1,4 +1,5 @@
-﻿using VHub.Media.Application.Contracts.Data.Persons;
+﻿using VHub.Media.Application.Contracts.Persons.Dto;
+using VHub.Media.Application.Contracts.Persons.Requests;
 
 namespace VHub.Media.Application.Persons.Handlers;
 

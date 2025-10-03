@@ -1,18 +1,31 @@
-﻿using VHub.Media.Api.Contracts.Movies.Requests;
+﻿using RestEase;
+using System.ComponentModel.DataAnnotations;
+using VHub.Media.Api.Contracts.Movies.Requests;
 using VHub.Media.Api.Contracts.Movies.Responses;
 
 namespace VHub.Media.Api.Contracts.Controllers;
 
+
+[BasePath("media/movies")]
 public interface IMoviesController
 {
-	Task<string> CreateMovieWithPersonsAsync(CreateMovieRequest request, CancellationToken cancellationToken);
+	[Post("new")]
+	Task<string> CreateMovieWithPersonsAsync(
+		[Required, Body] CreateMovieRequest request, CancellationToken cancellationToken);
 
-	Task UpdateMovieAsync(UpdateMovieRequest request, CancellationToken cancellationToken);
+	[Put("update")]
+	Task UpdateMovieAsync(
+		[Required, Body] UpdateMovieRequest request, CancellationToken cancellationToken);
 
-	Task DeleteMovieByIdAsync(string id, CancellationToken cancellationToken);
+	[Delete("delete/{id}")]
+	Task DeleteMovieByIdAsync(
+		[Required, Path] string id, CancellationToken cancellationToken);
 
-	Task<GetMovieResponse> GetMovieByIdAsync(string id, CancellationToken cancellationToken);
+	[Get("{id}")]
+	Task<GetMovieResponse> GetMovieByIdAsync(
+		[Required, Path] string id, CancellationToken cancellationToken);
 
+	[Post("")]
 	Task<List<GetMovieResponse>> GetMoviesByFilterAsync(
-		GetMoviesByFilterRequest filter, CancellationToken cancellationToken);
+		[Body] GetMoviesByFilterRequest filter, CancellationToken cancellationToken);
 }

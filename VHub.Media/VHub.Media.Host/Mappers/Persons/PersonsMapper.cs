@@ -1,16 +1,16 @@
 ﻿using VHub.Media.Api.Contracts.Persons.Requests;
 using VHub.Media.Api.Contracts.Persons.Responses;
+using VHub.Media.Api.Contracts.Movies.Enums;
 using VHub.Media.Api.Contracts.Persons.Dto;
-using VHub.Media.Api.Contracts.Enums;
 
 namespace VHub.Media.Host.Mappers.Persons;
 
 internal class PersonsMapper : IPersonsMapper
 {
-	public Application.Contracts.Data.Persons.PersonDto Map(CreatePersonRequest source) =>
+	public Application.Contracts.Persons.Dto.PersonDto Map(CreatePersonRequest source) =>
 		source == null
 		? throw new ArgumentNullException(nameof(source))
-		: new Application.Contracts.Data.Persons.PersonDto()
+		: new Application.Contracts.Persons.Dto.PersonDto()
 		{
 			FullName = source.FullName,
 			OriginalFullName = source.OriginalFullName,
@@ -19,7 +19,7 @@ internal class PersonsMapper : IPersonsMapper
 			PhotoPath = source.PhotoPath,
 		};
 
-	public GetPersonResponse Map(Application.Contracts.Data.Persons.PersonDto source) =>
+	public GetPersonResponse Map(Application.Contracts.Persons.Dto.PersonDto source) =>
 		source == null
 		? null
 		: new GetPersonResponse
@@ -33,7 +33,7 @@ internal class PersonsMapper : IPersonsMapper
 			Movies = source.Movies.Select(Map).ToArray(),
 		};
 
-	public MovieInfoDto Map(Application.Contracts.Data.Persons.MovieInfoDto source) =>
+	public MovieInfoDto Map(Application.Contracts.Persons.Dto.MovieInfoDto source) =>
 		source == null
 		? null
 		: new MovieInfoDto
@@ -45,10 +45,10 @@ internal class PersonsMapper : IPersonsMapper
 			MainGenre = (Genre)source.MainGenre,
 		};
 
-	public Application.Contracts.Data.Persons.GetPersonsByFilterRequest Map(GetPersonsByFilterRequest source) =>
+	public Application.Contracts.Persons.Requests.GetPersonsByFilterRequest Map(GetPersonsByFilterRequest source) =>
 		source == null
-		? null
-		: new Application.Contracts.Data.Persons.GetPersonsByFilterRequest
+		? throw new ArgumentNullException(nameof(source))
+		: new Application.Contracts.Persons.Requests.GetPersonsByFilterRequest
 		{
 			Id = source.Id,
 			FullName = source.FullName,

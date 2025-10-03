@@ -1,14 +1,14 @@
-﻿namespace VHub.Media.Application.Contracts.Data.Persons;
+﻿namespace VHub.Media.Application.Contracts.Persons.Dto;
 
 /// <summary>
 /// Персона.
 /// </summary>
 public class PersonDto
 {
-	/// <summary>
-	/// ID персоны.
-	/// </summary>
-	public string? Id { get; set; }
+    /// <summary>
+    /// ID персоны.
+    /// </summary>
+    public string? Id { get; set; }
 
     /// <summary>
     /// Полное имя.
@@ -30,13 +30,13 @@ public class PersonDto
     /// </summary>
     public string? BirthPlace { get; set; }
 
-	/// <summary>
-	/// Путь к фотографии.
-	/// </summary>
-	public string? PhotoPath{ get; set; }
+    /// <summary>
+    /// Путь к фотографии.
+    /// </summary>
+    public string? PhotoPath { get; set; }
 
-	/// <summary>
-	/// Фильмы, к которым относится данная персона.
-	/// </summary>
-	public MovieInfoDto[]? Movies { get; set; }
+    /// <summary>
+    /// Фильмы, к которым относится данная персона.
+    /// </summary>
+    public MovieInfoDto[]? Movies { get; set; }
 }

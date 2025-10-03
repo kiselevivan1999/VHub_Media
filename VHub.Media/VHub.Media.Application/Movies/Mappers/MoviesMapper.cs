@@ -1,8 +1,7 @@
-﻿using VHub.Media.Application.Contracts.Data.Movies;
-using VHub.Media.Domain.Data.Movies;
+﻿using VHub.Media.Application.Contracts.Movies.Dto;
+using VHub.Media.Domain.Movies;
 
 namespace VHub.Media.Application.Movies.Mappers;
-
 
 internal class MoviesMapper : IMoviesMapper
 {
@@ -42,7 +41,7 @@ internal class MoviesMapper : IMoviesMapper
 			Countries = source.Countries,
 			ReleaseDate = source.ReleaseDate,
 			Budget = source.Budget,
-			Genres = source.Genres.Select(x => (Contracts.Data.Enums.Genre)x).ToArray(),
+			Genres = source.Genres.Select(x => (Contracts.Movies.Enums.Genre)x).ToArray(),
 			AgeRating = source.AgeRating,
 			AverageRating = source.AverageRating,
 			RatingMpaa = source.RatingMpaa,
@@ -67,7 +66,7 @@ internal class MoviesMapper : IMoviesMapper
 			Countries = source.Countries,
 			ReleaseDate = source.ReleaseDate,
 			Budget = source.Budget,
-			Genres = source.Genres?.Select(x => (Domain.Data.Enums.Genre)x).ToArray(),
+			Genres = source.Genres.Select(x => (Domain.Movies.Genre)x).ToArray(),
 			AgeRating = source.AgeRating,
 			AverageRating = source.AverageRating,
 			RatingMpaa = source.RatingMpaa,
@@ -84,7 +83,7 @@ internal class MoviesMapper : IMoviesMapper
 		: new PersonInfoDto
 		{
 			Id = source.Id,
-			Type = (Contracts.Data.Enums.PersonType)source.Type,
+			Type = (Contracts.Persons.Enums.PersonType)source.Type,
 			FullName = source.FullName,
 			CharacterName = source.CharacterName,
 		};
@@ -95,7 +94,7 @@ internal class MoviesMapper : IMoviesMapper
 		: new PersonInfo
 		{
 			Id = source.Id,
-			Type = (Domain.Data.Enums.PersonType)source.Type,
+			Type = (Domain.Persons.PersonType)source.Type,
 			FullName = source.FullName,
 			CharacterName = source.CharacterName,
 		};
