@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using VHub.Media.Api.Contracts.Controllers;
+using VHub.Media.Api.Contracts;
 using VHub.Media.Api.Contracts.Movies.Requests;
 using VHub.Media.Api.Contracts.Movies.Responses;
 using VHub.Media.Application.Movies.Handlers;
