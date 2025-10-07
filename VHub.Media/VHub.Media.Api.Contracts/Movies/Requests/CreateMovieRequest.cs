@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VHub.Media.Api.Contracts.Movies.Dto;
-using VHub.Media.Api.Contracts.Movies.Enums;
+using VHub.Media.Api.Contracts.Movies.Responses;
+using VHub.Media.Api.Contracts.Persons;
 
 namespace VHub.Media.Api.Contracts.Movies.Requests;
 
@@ -77,16 +77,21 @@ public class CreateMovieRequest
     /// </summary>
     public bool? IsSerial { get; set; }
 
-    /// <summary>
-    /// Путь к постеру.
-    /// </summary>
-    [Required]
+	/// <summary>
+	/// Сезоны.
+	/// </summary>
+	public SeasonResponse[]? Seasons{ get; set; }
+
+	/// <summary>
+	/// Путь к постеру.
+	/// </summary>
+	[Required]
     public string PosterPath { get; set; }
 
-    /// <summary>
-    /// Путь к трейлеру.
-    /// </summary>
-    public string? TrailerPath { get; set; }
+	/// <summary>
+	/// Путь к трейлеру.
+	/// </summary>
+	public string? TrailerPath { get; set; }
 
     /// <summary>
     /// Платформы.
@@ -97,5 +102,5 @@ public class CreateMovieRequest
 	/// Персоны, к которым относится этот фильм.
 	/// </summary>
 	[Required, MinLength(1)]
-	public PersonInfoDto[] Persons { get; set; }
+	public PersonInfoResponse[] Persons { get; set; }
 }

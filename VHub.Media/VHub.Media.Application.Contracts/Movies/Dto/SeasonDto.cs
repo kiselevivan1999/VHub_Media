@@ -18,7 +18,7 @@ public class SeasonDto
     /// <summary>
     /// Оригинальное название.
     /// </summary>
-    public string OriginalName { get; set; }
+    public string? OriginalName { get; set; }
 
     /// <summary>
     /// Список серий.

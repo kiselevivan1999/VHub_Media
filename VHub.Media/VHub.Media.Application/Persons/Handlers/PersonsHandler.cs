@@ -1,8 +1,9 @@
 ﻿using LinqKit;
+using MongoDB.Driver;
+using System.Data.Entity;
 using System.Linq.Expressions;
 using VHub.Media.Application.Contracts.Persons.Dto;
 using VHub.Media.Application.Contracts.Persons.Requests;
-using VHub.Media.Application.Persons.Mappers;
 using VHub.Media.Application.Persons.Repositories;
 using VHub.Media.Domain.Persons;
 
@@ -11,12 +12,10 @@ namespace VHub.Media.Application.Persons.Handlers;
 internal class PersonsHandler : IPersonsHandler
 {
 	private readonly IPersonsRepository _repository;
-	private readonly IPersonsMapper _mapper;
 
-	public PersonsHandler(IPersonsRepository repository, IPersonsMapper mapper)
+	public PersonsHandler(IPersonsRepository repository)
 	{
 		_repository = repository ?? throw new ArgumentNullException(nameof(repository));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 	}
 
 	public async Task<string> CreatePersonAsync(PersonDto person, CancellationToken cancellationToken) =>

@@ -1,4 +1,4 @@
-﻿using VHub.Media.Application.Contracts.Movies.Enums;
+﻿using VHub.Media.Common.Enums;
 
 namespace VHub.Media.Application.Contracts.Persons.Dto;
 

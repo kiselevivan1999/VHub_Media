@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VHub.Media.Api.Contracts.Movies.Enums;
-
-namespace VHub.Media.Api.Contracts.Persons.Dto;
+﻿namespace VHub.Media.Api.Contracts.Persons.Responses;
 
 /// <summary>
 /// Информация о фильме.
 /// </summary>
-public class MovieInfoDto
+public class MovieInfoResponse
 {
     /// <summary>
     /// ID фильма.

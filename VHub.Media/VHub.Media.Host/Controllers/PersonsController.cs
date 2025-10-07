@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using VHub.Media.Api.Contracts;
 using VHub.Media.Api.Contracts.Persons.Requests;
 using VHub.Media.Api.Contracts.Persons.Responses;
+using VHub.Media.Application.Contracts.Persons.Dto;
 using VHub.Media.Application.Persons.Handlers;
-using VHub.Media.Host.Mappers.Persons;
 
 namespace VHub.Media.Host.Controllers;
 
@@ -13,19 +14,17 @@ namespace VHub.Media.Host.Controllers;
 public class PersonsController : ControllerBase, IPersonsController
 {
 	private readonly IPersonsHandler _handler;
-	private readonly IPersonsMapper _mapper;
 
-	public PersonsController(IPersonsHandler handler, IPersonsMapper mapper)
+	public PersonsController(IPersonsHandler handler)
 	{
 		_handler = handler ?? throw new ArgumentNullException(nameof(handler));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 	}
 
 	[HttpPost("new")]
 	public async Task<string> CreatePersonAsync(
 		[FromBody, Required] CreatePersonRequest request, CancellationToken cancellationToken)
 	{
-		return await _handler.CreatePersonAsync(_mapper.Map(request), cancellationToken);
+		return await _handler.CreatePersonAsync(request.Adapt<PersonDto>(), cancellationToken);
 	}
 
 	[HttpDelete("delete/{id}")]
@@ -40,14 +39,15 @@ public class PersonsController : ControllerBase, IPersonsController
 		[FromRoute, Required] string id, CancellationToken cancellationToken)
 	{
 		var result = await _handler.GetPersonByIdAsync(id, cancellationToken);
-		return _mapper.Map(result);
+		return result.Adapt<GetPersonResponse>();
 	}
 
 	[HttpPost("")]
 	public async Task<List<GetPersonResponse>> GetPersonsByFilterAsync(
 		[FromBody] GetPersonsByFilterRequest filter, CancellationToken cancellationToken)
 	{
-		var result = await _handler.GetPersonsByFilterAsync(_mapper.Map(filter), cancellationToken);
-		return result.Select(_mapper.Map).ToList();
+		var result = await _handler.GetPersonsByFilterAsync(
+			filter.Adapt<Application.Contracts.Persons.Requests.GetPersonsByFilterRequest>(), cancellationToken);
+		return result.Adapt<List<GetPersonResponse>>();
 	}
 }

@@ -1,9 +1,9 @@
-﻿namespace VHub.Media.Api.Contracts.Movies.Dto;
+﻿namespace VHub.Media.Api.Contracts.Movies.Responses;
 
 /// <summary>
 /// Сезон.
 /// </summary>
-public class SeasonDto
+public class SeasonResponse
 {
     /// <summary>
     /// Номер.
@@ -18,10 +18,10 @@ public class SeasonDto
     /// <summary>
     /// Оригинальное название.
     /// </summary>
-    public string OriginalName { get; set; }
+    public string? OriginalName { get; set; }
 
     /// <summary>
     /// Список серий.
     /// </summary>
-    public EpisodeDto[] Episodes { get; set; }
+    public EpisodeResponse[] Episodes { get; set; }
 }

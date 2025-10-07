@@ -1,6 +1,4 @@
-﻿using VHub.Media.Api.Contracts.Persons.Dto;
-
-namespace VHub.Media.Api.Contracts.Persons.Responses;
+﻿namespace VHub.Media.Api.Contracts.Persons.Responses;
 
 public class GetPersonResponse
 {
@@ -37,5 +35,5 @@ public class GetPersonResponse
     /// <summary>
     /// Фильмы, к которым относится данная персона.
     /// </summary>
-    public MovieInfoDto[] Movies { get; set; }
+    public MovieInfoResponse[] Movies { get; set; }
 }

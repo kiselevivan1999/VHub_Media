@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using VHub.Media.Api.Contracts;
 using VHub.Media.Api.Contracts.Movies.Requests;
 using VHub.Media.Api.Contracts.Movies.Responses;
+using VHub.Media.Application.Contracts.Movies.Dto;
 using VHub.Media.Application.Movies.Handlers;
-using VHub.Media.Host.Mappers.Movies;
 
 namespace VHub.Media.Host.Controllers;
 
@@ -14,19 +15,17 @@ namespace VHub.Media.Host.Controllers;
 public class MoviesController : IMoviesController
 {
 	private readonly IMoviesHandler _handler;
-	private readonly IMoviesMapper _mapper;
 
-	public MoviesController(IMoviesHandler handler, IMoviesMapper mapper)
+	public MoviesController(IMoviesHandler handler)
 	{
 		_handler = handler ?? throw new ArgumentNullException(nameof(handler));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 	}
 
 	[HttpPost("new")]
 	public async Task<string> CreateMovieWithPersonsAsync(
 		[Required, FromBody] CreateMovieRequest request, CancellationToken cancellationToken)
 	{
-		return await _handler.CreateMovieWithPersonsInfoAsync(_mapper.Map(request), cancellationToken);
+		return await _handler.CreateMovieWithPersonsInfoAsync(request.Adapt<MovieDto>(), cancellationToken);
 	}
 
 	[HttpDelete("delete/{id}")]
@@ -41,7 +40,7 @@ public class MoviesController : IMoviesController
 		[Required, FromRoute] string id, CancellationToken cancellationToken)
 	{
 		var result = await _handler.GetMovieByIdAsync(id, cancellationToken);
-		return _mapper.Map(result);
+		return result.Adapt<GetMovieResponse>();
 	}
 
 	[HttpPost("")]
@@ -57,6 +56,6 @@ public class MoviesController : IMoviesController
 	public async Task UpdateMovieAsync(
 		[Required, FromBody] UpdateMovieRequest request, CancellationToken cancellationToken)
 	{
-		await _handler.UpdateMovieWithPersonsAsync(_mapper.Map(request), cancellationToken);
+		await _handler.UpdateMovieWithPersonsAsync(request.Adapt<MovieDto>(), cancellationToken);
 	}
 }

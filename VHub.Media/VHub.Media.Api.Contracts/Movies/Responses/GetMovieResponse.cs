@@ -1,5 +1,4 @@
-﻿using VHub.Media.Api.Contracts.Movies.Dto;
-using VHub.Media.Api.Contracts.Movies.Enums;
+﻿using VHub.Media.Api.Contracts.Persons;
 
 namespace VHub.Media.Api.Contracts.Movies.Responses;
 
@@ -78,10 +77,15 @@ public class GetMovieResponse
     /// </summary>
     public bool? IsSerial { get; set; }
 
-    /// <summary>
-    /// Путь к постеру.
-    /// </summary>
-    public string PosterPath { get; set; }
+	/// <summary>
+	/// Сезоны.
+	/// </summary>
+	public SeasonResponse[]? Seasons { get; set; }
+
+	/// <summary>
+	/// Путь к постеру.
+	/// </summary>
+	public string PosterPath { get; set; }
 
     /// <summary>
     /// Путь к трейлеру.
@@ -94,7 +98,7 @@ public class GetMovieResponse
     public string[]? Platforms { get; set; }
 
     /// <summary>
-    /// Персоны, к которым относится этот фильм. 
+    /// Персоны, к которым относится этот фильм.
     /// </summary>
-    public PersonInfoDto[] Persons { get; set; }
+    public PersonInfoResponse[] Persons { get; set; }
 }

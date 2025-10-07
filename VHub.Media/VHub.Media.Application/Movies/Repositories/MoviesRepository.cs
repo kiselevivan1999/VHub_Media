@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Mapster;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
+using System.Data.Entity;
 using System.Linq.Expressions;
 using VHub.Media.Application.Contracts.Movies.Dto;
-using VHub.Media.Application.Movies.Mappers;
 using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 
@@ -11,13 +12,11 @@ namespace VHub.Media.Application.Movies.Repositories;
 internal class MoviesRepository : IMoviesRepository
 {
 	private readonly MongoDbContext _dbContext;
-	private readonly IMoviesMapper _mapper;
 	private readonly IConfiguration _configuration;
 
-	public MoviesRepository(MongoDbContext dbContext, IMoviesMapper mapper, IConfiguration configuration)
+	public MoviesRepository(MongoDbContext dbContext, IConfiguration configuration)
 	{
 		_dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-		_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 		_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 	}
 
@@ -51,14 +50,40 @@ internal class MoviesRepository : IMoviesRepository
 		}
 	}
 
+	public async Task DeleteAsync(string id, CancellationToken cancellationToken)
+	{
+		bool transactionsEnabled = Convert.ToBoolean(_configuration
+			.GetSection("MongoDB")
+			.GetSection("TransactionsEnabled")
+			.Value);
 
-	public async Task DeleteAsync(string id, CancellationToken cancellationToken) =>
-		await _dbContext.Movies.DeleteOneAsync(x => x.Id == id, cancellationToken);
+		if (transactionsEnabled)
+		{
+			using var session = await _dbContext.StartSessionAsync(cancellationToken);
+			session.StartTransaction();
+
+			try
+			{
+				await DeleteMovieWithSyncPersons(id, cancellationToken);
+				await session.CommitTransactionAsync(cancellationToken);
+			}
+			catch (Exception)
+			{
+				await session.AbortTransactionAsync(cancellationToken);
+				throw;
+			}
+		}
+		else
+		{
+			await DeleteMovieWithSyncPersons(id, cancellationToken);
+		}
+	}
+
 
 	public async Task UpdateAsync(MovieDto movie, CancellationToken cancellationToken)
 	{
 		var filter = Builders<Movie>.Filter.Eq(x => x.Id, movie.Id);
-		var document = _mapper.Map(movie);
+		var document = movie.Adapt<Movie>();
 		await _dbContext.Movies.ReplaceOneAsync(filter, document, cancellationToken: cancellationToken);
 	}
 
@@ -66,19 +91,19 @@ internal class MoviesRepository : IMoviesRepository
 	{
 		var filter = Builders<Movie>.Filter.Eq(x => x.Id, id);
 		var result = await _dbContext.Movies.Find(filter).SingleOrDefaultAsync(cancellationToken);
-		return _mapper.Map(result);
+		return result.Adapt<MovieDto>();
 	}
 
 	public async Task<List<MovieDto>> GetByFilterAsync(
 		Expression<Func<Movie, bool>> filter, CancellationToken cancellationToken)
 	{
 		var result = await _dbContext.Movies.Find(filter).ToListAsync(cancellationToken);
-		return result.ConvertAll(_mapper.Map);
+		return result.Adapt<List<MovieDto>>();
 	}
 
 	private async Task<string> CreateMovieWithPersonsInfoAsync(MovieDto movie, CancellationToken cancellationToken)
 	{
-		var document = _mapper.Map(movie);
+		var document = movie.Adapt<Movie>();
 
 		// Вставка нового документа в коллекцию movies.
 		await _dbContext.Movies.InsertOneAsync(
@@ -99,7 +124,7 @@ internal class MoviesRepository : IMoviesRepository
 				Title = movie.Title,
 				PosterPath = movie.PosterPath,
 				ReleaseYear = movie.ReleaseDate.Year,
-				MainGenre = (Genre)movie.Genres.First(), //todo Логика определения главного жанра фильма.
+				MainGenre = movie.Genres[0], //todo Логика определения главного жанра фильма.
 			};
 			var update = Builders<Person>.Update.Push(p => p.Movies, movieInfo);
 			var updateOptions = new UpdateOptions
@@ -116,5 +141,20 @@ internal class MoviesRepository : IMoviesRepository
 		}
 
 		return document.Id;
+	}
+
+	private async Task DeleteMovieWithSyncPersons(string movieId, CancellationToken cancellationToken)
+	{
+		var deleteMovieTask = _dbContext.Movies.DeleteOneAsync(x => x.Id == movieId, cancellationToken);
+
+		var filter = Builders<Person>.Filter.Empty;
+		var update = Builders<Person>.Update.PullFilter(
+			person => person.Movies,
+			movie => movie.Id == movieId);
+
+		var deleteMovieFromPersonsTask = _dbContext.Persons.UpdateManyAsync(
+			filter, update, cancellationToken: cancellationToken);
+
+		await Task.WhenAll(deleteMovieTask, deleteMovieFromPersonsTask);
 	}
 }

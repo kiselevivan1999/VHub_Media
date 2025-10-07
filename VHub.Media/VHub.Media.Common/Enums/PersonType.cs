@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 
-namespace VHub.Media.Api.Contracts.Persons.Enums;
+namespace VHub.Media.Common.Enums;
+
 /// <summary>
 /// Тип персоны.
 /// </summary>

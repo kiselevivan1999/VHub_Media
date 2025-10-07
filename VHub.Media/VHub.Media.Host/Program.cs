@@ -1,7 +1,5 @@
 using Mapster;
 using VHub.Media.Application;
-using VHub.Media.Host;
-using VHub.Media.Host.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +10,11 @@ builder.Services.AddControllers();
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
-    .AddAppServices(builder.Configuration)
-    .AddApiContractsMappers()
-    .AddRegisterMapper();
+    .AddAppServices(builder.Configuration);
 
 var app = builder.Build();
+
+TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

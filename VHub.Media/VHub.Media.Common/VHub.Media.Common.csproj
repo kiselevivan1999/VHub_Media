@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\VHub.Media.Common\VHub.Media.Common.csproj" />
-  </ItemGroup>
-
 </Project>

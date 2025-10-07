@@ -44,11 +44,6 @@ public class UpdateMovieRequest
 	public double? AverageRating { get; set; }
 
 	/// <summary>
-	/// Рейтинг MPAA.
-	/// </summary>
-	public string? RatingMpaa { get; set; } //todo Возможно нужно убрать, т.к. устанавливается экспертной комиссией до выхода фильма и скорее всего никогда не меняется.
-
-	/// <summary>
 	/// Путь к трейлеру.
 	/// </summary>
 	public string? TrailerPath { get; set; }

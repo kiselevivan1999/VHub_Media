@@ -24,21 +24,7 @@ public class MongoDbContext
 			throw new ArgumentException("Конфигурация MongoDB не найдена.");
 		}
 
-		//Конфигурация для логирования.
-		var settings = new MongoClientSettings
-		{
-			Server = new MongoServerAddress("localhost", 27017),
-			ClusterConfigurator = cb => cb.Subscribe<CommandStartedEvent>(e =>
-			{
-				if (e.CommandName == "find")
-				{
-					Console.WriteLine($"MongoDB Query: {e.Command.ToJson()}");
-				}
-			})
-		};
-
-		var client = new MongoClient(settings);
-		//var client = new MongoClient(conn);
+		var client = new MongoClient(conn);
 		_db = client.GetDatabase(dbName);
 		Movies = _db.GetCollection<Movie>("movies");
 		Persons = _db.GetCollection<Person>("persons");

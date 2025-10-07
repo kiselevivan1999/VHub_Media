@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using VHub.Media.Domain.Persons;
+using VHub.Media.Common.Enums;
 
 namespace VHub.Media.Domain.Movies;
 

@@ -1,4 +1,5 @@
-﻿using VHub.Media.Application.Contracts.Movies.Enums;
+﻿using VHub.Media.Common.Dto;
+using VHub.Media.Common.Enums;
 
 namespace VHub.Media.Application.Contracts.Movies.Dto;
 
@@ -77,9 +78,14 @@ public class MovieDto
     /// </summary>
     public bool? IsSerial { get; set; }
 
-    /// <summary>
-    /// Путь к постеру.
-    /// </summary>
+	/// <summary>
+	/// Сезоны.
+	/// </summary>
+	public SeasonDto[]? Seasons { get; set; }
+
+	/// <summary>
+	/// Путь к постеру.
+	/// </summary>
 	public string PosterPath { get; set; }
 
     /// <summary>
