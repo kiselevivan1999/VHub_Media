@@ -3,9 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\tests.yaml = .github\workflows\tests.yaml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{08FD5B7A-658C-442F-A4F6-704A284EBA0E}"
 EndProject
@@ -28,6 +25,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHub.Media.Common", "VHub.Media.Common\VHub.Media.Common.csproj", "{9B8163F3-8318-4E27-9E2A-DD0E372573F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{94A8CD94-2BA9-4528-9E0A-B50981FBB735}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\tests.yaml = ..\.github\workflows\tests.yaml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHub.Media.Tests", "VHub.Media.Tests\VHub.Media.Tests.csproj", "{E8DAEC3D-526D-4A82-916C-5BFA0D3ECF32}"
 EndProject
