@@ -10,6 +10,7 @@ env:
   DOTNET_VERSION: '8.0.x'
   MONGODB_VERSION: '7.0'
   BASE_DIR: './VHub.Media/VHub.Media.sln'
+  DOCKER_COMPOSE_FILE: 'docker-compose.test.yaml'
 
 jobs:
   integration-tests:
@@ -28,19 +29,19 @@ jobs:
       - name: Start test environment with Docker Compose
         run: |
           echo "🐳 Starting test environment..."
-          docker-compose -f docker-compose.test.yml -p vhub-media-tests up -d
+          docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} -p vhub-media-tests up -d
           
           echo "⏳ Waiting for services to be healthy..."
-          timeout 60s bash -c 'until docker-compose -f docker-compose.test.yml ps | grep "Up (healthy)"; do sleep 2; done' || true
+          timeout 60s bash -c 'until docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} ps | grep "Up (healthy)"; do sleep 2; done' || true
           
           echo "✅ Test environment started"
-          docker-compose -f docker-compose.test.yml ps
+          docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} ps
 
       - name: Wait for MongoDB readiness
         run: |
           echo "⏳ Waiting for MongoDB to accept connections..."
           for i in {1..30}; do
-            if docker-compose -f docker-compose.test.yml exec -T mongo-tests mongosh --eval "db.adminCommand('ping')" --quiet; then
+            if docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T mongo-tests mongosh --eval "db.adminCommand('ping')" --quiet; then
               echo "✅ MongoDB is ready!"
               break
             fi
@@ -75,4 +76,4 @@ jobs:
         if: always()
         run: |
           echo "🛑 Stopping test environment..."
-          docker-compose -f docker-compose.test.yml down -v
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} down -v
