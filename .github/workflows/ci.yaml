@@ -10,7 +10,7 @@ env:
   DOTNET_VERSION: '8.0.x'
   MONGODB_VERSION: '7.0'
   BASE_DIR: './VHub.Media/VHub.Media.sln'
-  DOCKER_COMPOSE_FILE: 'docker-compose.test.yaml'
+  DOCKER_COMPOSE_FILE: './VHub.Media/docker-compose.test.yaml'
 
 jobs:
   integration-tests:
