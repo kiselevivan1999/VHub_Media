@@ -1,36 +1,38 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Mongo2Go;
+using MongoDB.Driver;
 using VHub.Media.Application;
+using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 
 namespace VHub.Media.Tests.Infrastructure;
 
 public class MongoDbFixture : IDisposable
 {
-    private readonly MongoDbRunner _runner;
     public IConfiguration Configuration { get; }
-
     public MongoDbContext DbContext { get; }
 
     public MongoDbFixture()
     {
-        _runner = MongoDbRunner.Start();
+        var configDict = new Dictionary<string, string>
+        {
+            { "MongoDB:ConnectionString", "mongodb://localhost:27017" },
+            { "MongoDB:DatabaseName", "test-db" }
+        };
 
-        Configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string>
-            {
-                {"MongoDB:ConnectionString", _runner.ConnectionString},
-                {"MongoDB:DatabaseName", "testdb"}
-            })
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(configDict!)
             .Build();
 
+        Configuration = configuration;
         DbContext = new MongoDbContext(Configuration);
-
         SeedData();
     }
 
     private void SeedData()
     {
+        DbContext.Movies.DeleteMany(Builders<Movie>.Filter.Empty);
+        DbContext.Persons.DeleteMany(Builders<Person>.Filter.Empty);
+
         var testPersons = new[]
         {
             new Person
@@ -126,5 +128,7 @@ public class MongoDbFixture : IDisposable
         DbContext.Persons.InsertMany(testPersons);
     }
 
-    public void Dispose() => _runner?.Dispose();
+    public void Dispose()
+    {
+    }
 }
