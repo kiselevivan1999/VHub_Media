@@ -6,7 +6,7 @@ using VHub.Media.Domain.Persons;
 
 namespace VHub.Media.Tests.Infrastructure;
 
-public class MongoDbFixture : IDisposable
+public class MongoDbFixture
 {
     public IConfiguration Configuration { get; }
     public MongoDbContext DbContext { get; }
@@ -19,11 +19,10 @@ public class MongoDbFixture : IDisposable
             { "MongoDB:DatabaseName", "test-db" }
         };
 
-        var configuration = new ConfigurationBuilder()
+        Configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(configDict!)
             .Build();
 
-        Configuration = configuration;
         DbContext = new MongoDbContext(Configuration);
         SeedData();
     }
@@ -126,9 +125,5 @@ public class MongoDbFixture : IDisposable
         };
 
         DbContext.Persons.InsertMany(testPersons);
-    }
-
-    public void Dispose()
-    {
     }
 }
