@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongo-tests:
     image: mongo:7.0
@@ -12,5 +10,5 @@ services:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')", "--quiet"]
       interval: 5s
       timeout: 10s
-      retries: 10
-      start_period: 30s
+      retries: 3
+      start_period: 20s

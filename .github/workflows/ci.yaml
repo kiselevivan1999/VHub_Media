@@ -41,7 +41,7 @@ jobs:
         run: |
           echo "⏳ Waiting for MongoDB to accept connections..."
           for i in {1..30}; do
-            if docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T mongo-tests mongosh --eval "db.adminCommand('ping')" --quiet; then
+            if docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T mongo-tests mongosh --eval "db.adminCommand('ping')" --quiet; then
               echo "✅ MongoDB is ready!"
               break
             fi
@@ -59,9 +59,10 @@ jobs:
         run: |
           dotnet test \
           ${{ ENV.BASE_DIR }} \
+          --no-restore \
           --no-build
-          --verbosity normal
           --configuration Release
+          --verbosity normal
           --logger "trx;LogFileName=test-results.trx" \
           --results-directory TestResults
 
@@ -76,4 +77,4 @@ jobs:
         if: always()
         run: |
           echo "🛑 Stopping test environment..."
-          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} down -v
+          docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} down -v
