@@ -8,15 +8,24 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
-  MONGODB_VERSION: '7.0'
-  BASE_DIR: './VHub.Media/VHub.Media.sln'
-  DOCKER_COMPOSE_FILE: './VHub.Media/docker-compose.test.yaml'
+  PROJECT_DIR: './VHub.Media'
 
 jobs:
   integration-tests:
     name: Integration Tests
     runs-on: ubuntu-latest
-    
+
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval \"db.adminCommand('ping')\" --quiet"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,55 +35,34 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Start test environment with Docker Compose
+      - name: Wait for MongoDB
         run: |
-          echo "🐳 Starting test environment..."
-          docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} -p vhub-media-tests up -d
-          
-          echo "⏳ Waiting for services to be healthy..."
-          timeout 60s bash -c 'until docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} ps | grep "Up (healthy)"; do sleep 2; done' || true
-          
-          echo "✅ Test environment started"
-          docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} ps
-
-      - name: Wait for MongoDB readiness
-        run: |
-          echo "⏳ Waiting for MongoDB to accept connections..."
-          for i in {1..30}; do
-            if docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T mongo-tests mongosh --eval "db.adminCommand('ping')" --quiet; then
+          echo "⏳ Waiting for MongoDB..."
+          for i in {1..20}; do
+            if docker exec ${{ job.services.mongodb.id }} mongosh --eval "db.adminCommand('ping')" --quiet > /dev/null 2>&1; then
               echo "✅ MongoDB is ready!"
               break
             fi
-            echo "Attempt $i/30..."
+            echo "Attempt $i/20..."
             sleep 2
           done
 
       - name: Restore dependencies
-        run: dotnet restore ${{ ENV.BASE_DIR }}
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: dotnet restore
 
       - name: Build
-        run: dotnet build ${{ ENV.BASE_DIR }} --no-restore --configuration Release
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: dotnet build --no-restore --configuration Release
 
       - name: Run tests
+        working-directory: ${{ env.PROJECT_DIR }}
         run: |
           dotnet test \
-          ${{ ENV.BASE_DIR }} \
-          --no-restore \
-          --no-build
-          --configuration Release
-          --verbosity normal
-          --logger "trx;LogFileName=test-results.trx" \
-          --results-directory TestResults
+            --no-restore \
+            --no-build \
+            --configuration Release \
+            --verbosity normal
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-results
-          path: TestResults/**/*.trx
-
-      - name: Stop test environment
-        if: always()
-        run: |
-          echo "🛑 Stopping test environment..."
-          docker compose -f ${{ env.DOCKER_COMPOSE_FILE }} down -v
+      - name: Success
+        run: echo "🎉 All tests passed!"
