@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using VHub.Media.Application;
+using VHub.Media.Application.MongoDb;
 using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 

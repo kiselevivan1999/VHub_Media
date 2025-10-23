@@ -1,4 +1,5 @@
-﻿using VHub.Media.Api.Contracts.Persons;
+﻿using VHub.Media.Api.Contracts.Movies.Enums;
+using VHub.Media.Api.Contracts.Persons;
 
 namespace VHub.Media.Api.Contracts.Movies.Responses;
 
@@ -60,7 +61,7 @@ public class GetMovieResponse
     /// <summary>
     /// Возрастной рейтинг.
     /// </summary>
-    public string? AgeRating { get; set; }
+    public AgeRating? AgeRating { get; set; }
 
     /// <summary>
     /// Средняя оценка.
@@ -70,7 +71,7 @@ public class GetMovieResponse
     /// <summary>
     /// Рейтинг MPAA.
     /// </summary>
-    public string? RatingMpaa { get; set; }
+    public RatingMpaa? RatingMpaa { get; set; }
 
     /// <summary>
     /// Является сериалом.

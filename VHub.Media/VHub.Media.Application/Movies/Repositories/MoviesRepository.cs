@@ -1,9 +1,9 @@
 ﻿using Mapster;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using System.Data.Entity;
 using System.Linq.Expressions;
 using VHub.Media.Application.Contracts.Movies.Dto;
+using VHub.Media.Application.MongoDb;
 using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 
