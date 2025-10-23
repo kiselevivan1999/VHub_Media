@@ -28,6 +28,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{94A8CD94
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHub.Media.Tests", "VHub.Media.Tests\VHub.Media.Tests.csproj", "{E8DAEC3D-526D-4A82-916C-5BFA0D3ECF32}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{C41162C6-F292-4265-8AC8-B3A0E981DFE0}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\ci.yaml = ..\.github\workflows\ci.yaml
+		docker-compose.test.yaml = docker-compose.test.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +85,7 @@ Global
 		{9B8163F3-8318-4E27-9E2A-DD0E372573F2} = {CA49C427-A980-4204-9296-FF75ED0EF61C}
 		{94A8CD94-2BA9-4528-9E0A-B50981FBB735} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 		{E8DAEC3D-526D-4A82-916C-5BFA0D3ECF32} = {94A8CD94-2BA9-4528-9E0A-B50981FBB735}
+		{C41162C6-F292-4265-8AC8-B3A0E981DFE0} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FB3B08B-1B37-4421-81BB-9634AAD73F7E}

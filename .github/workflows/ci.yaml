@@ -1,0 +1,68 @@
+name: VHub.Media.Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  PROJECT_DIR: './VHub.Media'
+
+jobs:
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval \"db.adminCommand('ping')\" --quiet"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Wait for MongoDB
+        run: |
+          echo "⏳ Waiting for MongoDB..."
+          for i in {1..20}; do
+            if docker exec ${{ job.services.mongodb.id }} mongosh --eval "db.adminCommand('ping')" --quiet > /dev/null 2>&1; then
+              echo "✅ MongoDB is ready!"
+              break
+            fi
+            echo "Attempt $i/20..."
+            sleep 2
+          done
+
+      - name: Restore dependencies
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: dotnet restore
+
+      - name: Build
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run tests
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: |
+          dotnet test \
+            --no-restore \
+            --no-build \
+            --configuration Release \
+            --verbosity normal
+
+      - name: Success
+        run: echo "🎉 All tests passed!"
