@@ -94,11 +94,11 @@ internal class MoviesRepository : IMoviesRepository
 		return result.Adapt<MovieDto>();
 	}
 
-	public async Task<List<MovieDto>> GetByFilterAsync(
+	public async Task<MovieDto[]> GetByFilterAsync(
 		Expression<Func<Movie, bool>> filter, CancellationToken cancellationToken)
 	{
 		var result = await _dbContext.Movies.Find(filter).ToListAsync(cancellationToken);
-		return result.Adapt<List<MovieDto>>();
+		return result.Adapt<MovieDto[]>();
 	}
 
 	private async Task<string> CreateMovieWithPersonsInfoAsync(MovieDto movie, CancellationToken cancellationToken)

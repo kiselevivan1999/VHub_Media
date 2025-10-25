@@ -42,7 +42,7 @@ public class PersonsController : ControllerBase, IPersonsController
 		return result.Adapt<GetPersonResponse>();
 	}
 
-	[HttpPost("")]
+	[HttpPost]
 	public async Task<List<GetPersonResponse>> GetPersonsByFilterAsync(
 		[FromBody] GetPersonsByFilterRequest filter, CancellationToken cancellationToken)
 	{

@@ -61,7 +61,7 @@ public class MovieDto
     /// <summary>
     /// Возрастной рейтинг.
     /// </summary>
-    public string? AgeRating { get; set; }
+    public AgeRating? AgeRating { get; set; }
 
     /// <summary>
     /// Средняя оценка.
@@ -71,7 +71,7 @@ public class MovieDto
     /// <summary>
     /// Рейтинг MPAA.
     /// </summary>
-    public string? RatingMpaa { get; set; }
+    public RatingMpaa? RatingMpaa { get; set; }
 
     /// <summary>
     /// Является сериалом.

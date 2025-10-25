@@ -20,7 +20,7 @@ public interface IPersonsController
     Task<GetPersonResponse> GetPersonByIdAsync(
         [Required, Path] string id, CancellationToken cancellationToken);
 
-    [Post("")]
+    [Post]
     Task<List<GetPersonResponse>> GetPersonsByFilterAsync(
         [Body] GetPersonsByFilterRequest filter, CancellationToken cancellationToken);
 }

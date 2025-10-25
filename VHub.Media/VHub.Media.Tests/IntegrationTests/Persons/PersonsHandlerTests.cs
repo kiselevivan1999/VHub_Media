@@ -9,15 +9,13 @@ using Xunit;
 namespace VHub.Media.Tests.IntegrationTests.Persons;
 
 [Trait("Category", "Integration")]
-public class PersonsHandlerTests : IClassFixture<MongoDbFixture>
+public class PersonsHandlerTests : IClassFixture<MongoDbPersonsFixture>
 {
-    private readonly MongoDbFixture _fixture;
     private readonly PersonsHandler _handler;
 
-    public PersonsHandlerTests(MongoDbFixture fixture)
+    public PersonsHandlerTests(MongoDbPersonsFixture personsFixture)
     {
-        _fixture = fixture;
-        var repository = new PersonsRepository(_fixture.DbContext, _fixture.Configuration);
+        var repository = new PersonsRepository(personsFixture.DbContext, personsFixture.Configuration);
         _handler = new PersonsHandler(repository);
     }
 
