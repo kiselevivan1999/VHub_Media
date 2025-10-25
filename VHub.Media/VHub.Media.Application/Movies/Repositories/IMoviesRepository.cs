@@ -14,6 +14,6 @@ internal interface IMoviesRepository
 
 	Task<MovieDto> GetAsync(string id, CancellationToken cancellationToken);
 
-	Task<List<MovieDto>> GetByFilterAsync(
+	Task<MovieDto[]> GetByFilterAsync(
 		Expression<Func<Movie, bool>> filter, CancellationToken cancellationToken);
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VHub.Media.Api.Contracts.Movies.Enums;
 
 namespace VHub.Media.Api.Contracts.Movies.Requests;
 
@@ -36,7 +37,7 @@ public class UpdateMovieRequest
 	/// <summary>
 	/// Возрастной рейтинг.
 	/// </summary>
-	public string? AgeRating { get; set; }
+	public AgeRating? AgeRating { get; set; }
 
 	/// <summary>
 	/// Средняя оценка.

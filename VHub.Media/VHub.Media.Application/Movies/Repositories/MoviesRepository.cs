@@ -1,9 +1,9 @@
 ﻿using Mapster;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
-using System.Data.Entity;
 using System.Linq.Expressions;
 using VHub.Media.Application.Contracts.Movies.Dto;
+using VHub.Media.Application.MongoDb;
 using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 
@@ -94,11 +94,11 @@ internal class MoviesRepository : IMoviesRepository
 		return result.Adapt<MovieDto>();
 	}
 
-	public async Task<List<MovieDto>> GetByFilterAsync(
+	public async Task<MovieDto[]> GetByFilterAsync(
 		Expression<Func<Movie, bool>> filter, CancellationToken cancellationToken)
 	{
 		var result = await _dbContext.Movies.Find(filter).ToListAsync(cancellationToken);
-		return result.Adapt<List<MovieDto>>();
+		return result.Adapt<MovieDto[]>();
 	}
 
 	private async Task<string> CreateMovieWithPersonsInfoAsync(MovieDto movie, CancellationToken cancellationToken)

@@ -25,7 +25,7 @@ public interface IMoviesController
     Task<GetMovieResponse> GetMovieByIdAsync(
         [Required, Path] string id, CancellationToken cancellationToken);
 
-    [Post("")]
+    [Post]
     Task<List<GetMovieResponse>> GetMoviesByFilterAsync(
         [Body] GetMoviesByFilterRequest filter, CancellationToken cancellationToken);
 }
