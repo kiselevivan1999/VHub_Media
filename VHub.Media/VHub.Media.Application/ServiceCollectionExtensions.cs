@@ -9,23 +9,23 @@ namespace VHub.Media.Application;
 
 public static class ServiceCollectionExtensions
 {
-	public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration configuration)
-		=> services
-		.AddMongoDb(configuration)
-		.AddPersonsAppServices()
-		.AddMoviesAppServices();
+    public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration configuration)
+        => services
+            .AddMongoDb(configuration)
+            .AddPersonsAppServices()
+            .AddMoviesAppServices();
 
-	private static IServiceCollection AddMongoDb(this IServiceCollection services, IConfiguration configuration)
-		=> services
-		.AddSingleton(_ => new MongoDbContext(configuration));
+    private static IServiceCollection AddMongoDb(this IServiceCollection services, IConfiguration configuration)
+        => services
+            .AddSingleton(_ => new MongoDbContext(configuration));
 
-	private static IServiceCollection AddPersonsAppServices(this IServiceCollection services)
-		=> services
-		.AddScoped<IPersonsRepository, PersonsRepository>()
-		.AddScoped<IPersonsHandler, PersonsHandler>();
+    private static IServiceCollection AddPersonsAppServices(this IServiceCollection services)
+        => services
+            .AddScoped<IPersonsRepository, PersonsRepository>()
+            .AddScoped<IPersonsHandler, PersonsHandler>();
 
-	private static IServiceCollection AddMoviesAppServices(this IServiceCollection services)
-		=> services
-		.AddScoped<IMoviesRepository, MoviesRepository>()
-		.AddScoped<IMoviesHandler, MoviesHandler>();
+    private static IServiceCollection AddMoviesAppServices(this IServiceCollection services)
+        => services
+            .AddScoped<IMoviesRepository, MoviesRepository>()
+            .AddScoped<IMoviesHandler, MoviesHandler>();
 }
