@@ -1,5 +1,6 @@
 using Mapster;
 using VHub.Media.Application;
+using VHub.Media.Host;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
     .AddAppServices(builder.Configuration);
+
+builder.Services.AddS3Service(builder.Configuration);
 
 var app = builder.Build();
 

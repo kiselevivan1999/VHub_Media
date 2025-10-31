@@ -1,0 +1,74 @@
+networks:
+  vhub-network:
+    driver: bridge
+
+volumes:
+  vhub-media-mongo-data:
+  minio_data:
+
+services:
+  vhub-media-host:
+    image: vhub-media-app:1.0
+    container_name: vhub-media-host
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "2025:80"
+    networks:
+      - vhub-network
+    volumes:
+      - ./VHub.Media.Host/appsettings.json:/app/appsettings.json
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:80
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      vhub-media-mongo-db:
+        condition: service_healthy
+      minio-db:
+        condition: service_healthy
+
+  vhub-media-mongo-db:
+    image: mongo:7.0
+    restart: unless-stopped
+    container_name: vhub-media-mongo-db
+    ports:
+      - "27020:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: media
+    healthcheck:
+      test: |
+        echo 'db.runCommand("ping").ok' | mongosh localhost:27017/admin --quiet --username admin --password admin123
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - vhub-media-mongo-data:/data/db
+    networks:
+      - vhub-network
+  
+  minio-db:
+    image: minio/minio
+    restart: unless-stopped
+    container_name: minio-db
+    ports:
+      - "9000:9000"   # API порт
+      - "9001:9001"   # Web Console порт
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    healthcheck:
+      test: [
+        "CMD", "curl", "-f", "http://localhost:9000/minio/health/live"
+      ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - vhub-network
