@@ -19,7 +19,7 @@ jobs:
       mongodb:
         image: mongo:7.0
         ports:
-          - 27017:27017
+          - 27018:27017
         options: >-
           --health-cmd="mongosh --eval \"db.adminCommand('ping')\" --quiet"
           --health-interval=10s
