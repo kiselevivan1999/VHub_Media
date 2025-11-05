@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 using VHub.Media.Application.Contracts.Persons.Dto;
+using VHub.Media.Application.MongoDb;
 using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 

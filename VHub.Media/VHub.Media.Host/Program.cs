@@ -17,7 +17,7 @@ builder.Services.AddS3Service(builder.Configuration);
 
 var app = builder.Build();
 
-TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
+MapsterConfiguration.AddMapster();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

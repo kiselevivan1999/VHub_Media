@@ -13,6 +13,6 @@ public interface IMoviesHandler
 
 	Task<MovieDto> GetMovieByIdAsync(string id, CancellationToken cancellationToken);
 
-	Task<List<MovieDto>> GetMoviesByFilterAsync(
+	Task<MovieDto[]> GetMoviesByFilterAsync(
 		GetMoviesByFilterRequest filter, CancellationToken cancellationToken);
 }
