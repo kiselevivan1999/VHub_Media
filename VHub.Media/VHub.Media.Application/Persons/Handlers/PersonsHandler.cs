@@ -1,6 +1,4 @@
 ﻿using LinqKit;
-using MongoDB.Driver;
-using System.Data.Entity;
 using System.Linq.Expressions;
 using VHub.Media.Application.Contracts.Persons.Dto;
 using VHub.Media.Application.Contracts.Persons.Requests;
@@ -32,7 +30,7 @@ internal class PersonsHandler : IPersonsHandler
 	{
 		if (filter == null)
 		{
-			return Array.Empty<PersonDto>();
+			return [];
 		}
 
 		if (!string.IsNullOrWhiteSpace(filter.Id))
@@ -42,23 +40,21 @@ internal class PersonsHandler : IPersonsHandler
 
 		if (string.IsNullOrWhiteSpace(filter.FullName) && string.IsNullOrWhiteSpace(filter.OriginalFullName))
 		{
-			return Array.Empty<PersonDto>();
+			return [];
 		}
-
-		// Фильтр по имени с OR логикой.
+        
 		var nameFilter = PredicateBuilder.New<Person>(false);
 
 		if (!string.IsNullOrWhiteSpace(filter.FullName))
 		{
-			nameFilter = nameFilter.Or(p => p.FullName.Contains(filter.FullName));
+			nameFilter = nameFilter.Or(person => person.FullName.Contains(filter.FullName));
 		}
 
 		if (!string.IsNullOrWhiteSpace(filter.OriginalFullName))
 		{
-			nameFilter = nameFilter.Or(p => p.OriginalFullName.Contains(filter.OriginalFullName));
+			nameFilter = nameFilter.Or(person => person.OriginalFullName != null && person.OriginalFullName.Contains(filter.OriginalFullName));
 		}
 
-		// Последовательные добавочные фильтры с AND логикой.
 		Expression<Func<Person, bool>> finalFilter = nameFilter;
 
 		if (filter.BirthDate != null)
@@ -68,7 +64,7 @@ internal class PersonsHandler : IPersonsHandler
 
 		if (!string.IsNullOrWhiteSpace(filter.BirthPlace))
 		{
-			finalFilter = finalFilter.And(person => person.BirthPlace.Contains(filter.BirthPlace));
+			finalFilter = finalFilter.And(person => person.BirthPlace != null && person.BirthPlace.Contains(filter.BirthPlace));
 		}
 
 		return await _repository.GetByFilterAsync(finalFilter, cancellationToken);

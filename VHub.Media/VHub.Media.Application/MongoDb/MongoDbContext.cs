@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Core.Events;
 using VHub.Media.Domain.Movies;
 using VHub.Media.Domain.Persons;
 
-namespace VHub.Media.Application;
+namespace VHub.Media.Application.MongoDb;
 
 public class MongoDbContext
 {
