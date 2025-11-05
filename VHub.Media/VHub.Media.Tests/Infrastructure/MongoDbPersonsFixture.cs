@@ -14,7 +14,7 @@ public class MongoDbPersonsFixture
     {
         var configDict = new Dictionary<string, string>
         {
-            { "MongoDB:ConnectionString", "mongodb://localhost:27017" },
+            { "MongoDB:ConnectionString", "mongodb://localhost:27018" },
             { "MongoDB:DatabaseName", "test-db" }
         };
 
