@@ -4,6 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>VHub.Media.Api.Contracts</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>DevBeavers</Authors>
+    <Description>Публичные API контракты сервиса медиаданных.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/kiselevivan1999/VHub_Media/tree/main/VHub.Media/VHub.Media.Api.Contracts</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kiselevivan1999/VHub_Media</RepositoryUrl>
+    <PackageTags>http;media;api;contracts;</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
