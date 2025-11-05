@@ -13,8 +13,6 @@
     <PackageProjectUrl>https://github.com/kiselevivan1999/VHub_Media/tree/main/VHub.Media/VHub.Media.Api.Contracts</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kiselevivan1999/VHub_Media</RepositoryUrl>
     <PackageTags>http;media;api;contracts;</PackageTags>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
