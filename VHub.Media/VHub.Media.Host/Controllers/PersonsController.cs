@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using VHub.Media.Api.Contracts;
@@ -11,6 +12,7 @@ namespace VHub.Media.Host.Controllers;
 
 [ApiController]
 [Route("media/persons")]
+[Authorize]
 public class PersonsController : ControllerBase, IPersonsController
 {
     private readonly IPersonsHandler _handler;
@@ -21,6 +23,7 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpPost("new")]
+    [Authorize("Admin")]
     public async Task<string> CreatePersonAsync(
         [FromBody, Required] CreatePersonRequest request, CancellationToken cancellationToken)
     {
@@ -28,6 +31,7 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpDelete("delete/{id}")]
+    [Authorize("Admin")]
     public async Task DeletePersonByIdAsync(
         [FromRoute, Required] string id, CancellationToken cancellationToken)
     {
