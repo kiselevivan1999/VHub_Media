@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VHub.Media.Application.Files;
 
@@ -6,6 +7,7 @@ namespace VHub.Media.Host.Controllers;
 
 [ApiController]
 [Route("media/files")]
+[Authorize]
 public class FilesController : ControllerBase
 {
     private readonly IFilesHandler _filesHandler;
@@ -17,6 +19,7 @@ public class FilesController : ControllerBase
 
     [HttpPost("upload")]
     [RequestSizeLimit(300 * 1024 * 1024)] // Максимальный размер 300 МБ.
+    [Authorize("Admin")]
     public async Task<string> UploadFile(
         [Required] IFormFile file, CancellationToken cancellationToken = default)
     {
@@ -50,6 +53,7 @@ public class FilesController : ControllerBase
     }
 
     [HttpDelete("delete/{key}")]
+    [Authorize("Admin")]
     public async Task<bool> DeleteFile(
         [Required, FromRoute] string key, CancellationToken cancellationToken = default) =>
         await _filesHandler.DeleteFileAsync(key, cancellationToken);

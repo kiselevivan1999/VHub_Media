@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using VHub.Media.Api.Contracts;
@@ -10,6 +11,7 @@ namespace VHub.Media.Host.Controllers;
 
 [ApiController]
 [Route("media/movies")]
+[Authorize]
 public class MoviesController : ControllerBase, IMoviesController
 {
     private readonly IMoviesHandler _handler;
@@ -20,6 +22,7 @@ public class MoviesController : ControllerBase, IMoviesController
     }
 
     [HttpPost("new")]
+    [Authorize("Admin")]
     public async Task<string> CreateMovieWithPersonsAsync(
         [Required, FromBody] CreateMovieRequest request, CancellationToken cancellationToken)
     {
@@ -28,6 +31,7 @@ public class MoviesController : ControllerBase, IMoviesController
     }
 
     [HttpDelete("delete/{id}")]
+    [Authorize("Admin")]
     public async Task DeleteMovieByIdAsync(
         [Required, FromRoute] string id, CancellationToken cancellationToken)
     {
@@ -52,6 +56,7 @@ public class MoviesController : ControllerBase, IMoviesController
     }
 
     [HttpPut("update")]
+    [Authorize("Admin")]
     public async Task UpdateMovieAsync(
         [Required, FromBody] UpdateMovieRequest request, CancellationToken cancellationToken)
     {

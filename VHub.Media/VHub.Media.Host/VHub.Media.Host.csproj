@@ -7,14 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Mapster" Version="7.4.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6"/>
+        <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\VHub.Media.Api.Contracts\VHub.Media.Api.Contracts.csproj"/>
-        <ProjectReference Include="..\VHub.Media.Application.Contracts\VHub.Media.Application.Contracts.csproj"/>
-        <ProjectReference Include="..\VHub.Media.Application\VHub.Media.Application.csproj"/>
+        <ProjectReference Include="..\VHub.Media.Api.Contracts\VHub.Media.Api.Contracts.csproj" />
+        <ProjectReference Include="..\VHub.Media.Application.Contracts\VHub.Media.Application.Contracts.csproj" />
+        <ProjectReference Include="..\VHub.Media.Application\VHub.Media.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
