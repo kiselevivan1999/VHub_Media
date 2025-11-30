@@ -78,15 +78,15 @@ public class GetMovieResponse
     /// </summary>
     public bool? IsSerial { get; set; }
 
-	/// <summary>
-	/// Сезоны.
-	/// </summary>
-	public SeasonResponse[]? Seasons { get; set; }
+    /// <summary>
+    /// Сезоны.
+    /// </summary>
+    public SeasonResponse[]? Seasons { get; set; }
 
-	/// <summary>
-	/// Путь к постеру.
-	/// </summary>
-	public string PosterPath { get; set; }
+    /// <summary>
+    /// Путь к постеру.
+    /// </summary>
+    public string PosterPath { get; set; }
 
     /// <summary>
     /// Путь к трейлеру.

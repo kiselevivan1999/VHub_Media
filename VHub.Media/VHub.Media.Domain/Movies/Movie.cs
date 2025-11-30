@@ -64,7 +64,7 @@ public class Movie
     /// Жанры.
     /// </summary>
     [BsonRequired]
-	public Genre[] Genres { get; set; }
+    public Genre[] Genres { get; set; }
 
     /// <summary>
     /// Возрастной рейтинг.
@@ -86,15 +86,15 @@ public class Movie
     /// </summary>
     public bool? IsSerial { get; set; }
 
-	/// <summary>
-	/// Сезоны.
-	/// </summary>
-	public Season[]? Seasons { get; set; }
+    /// <summary>
+    /// Сезоны.
+    /// </summary>
+    public Season[]? Seasons { get; set; }
 
-	/// <summary>
-	/// Путь к постеру.
-	/// </summary>
-	[BsonRequired]
+    /// <summary>
+    /// Путь к постеру.
+    /// </summary>
+    [BsonRequired]
     public string PosterPath { get; set; }
 
     /// <summary>
@@ -105,7 +105,7 @@ public class Movie
     /// <summary>
     /// Платформы.
     /// </summary>
-	public string[]? Platforms { get; set; }
+    public string[]? Platforms { get; set; }
 
     /// <summary>
     /// Персоны, к которым относится этот фильм.

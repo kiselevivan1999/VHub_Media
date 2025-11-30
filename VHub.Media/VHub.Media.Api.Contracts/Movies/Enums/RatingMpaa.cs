@@ -12,36 +12,30 @@ public enum RatingMpaa
     /// <summary>
     /// Неизвестно.
     /// </summary>
-    [Description("Неизвестно")]
-    Unknown = 0,
+    [Description("Неизвестно")] Unknown = 0,
 
     /// <summary>
     /// G. Нет возрастных ограничений.
     /// </summary>
-    [Description("G")]
-    GeneralAudiences = 1,
+    [Description("G")] GeneralAudiences = 1,
 
     /// <summary>
     /// PG. Рекомендуется присутствие родителей.
     /// </summary>
-    [Description("PG")]
-    ParentalGuidanceSuggested = 2,
+    [Description("PG")] ParentalGuidanceSuggested = 2,
 
     /// <summary>
     /// PG-13. Детям до 13 лет просмотр не желателен.
     /// </summary>
-    [Description("PG-13")]
-    ParentsStronglyCautioned = 3,
+    [Description("PG-13")] ParentsStronglyCautioned = 3,
 
     /// <summary>
     /// R. Лицам до 17 лет обязательно присутствие взрослого.
     /// </summary>
-    [Description("R")]
-    Restricted = 4,
+    [Description("R")] Restricted = 4,
 
     /// <summary>
     /// NC-17. Лицам до 18 лет просмотр запрещен.
     /// </summary>
-    [Description("NC-17")]
-    NC17 = 5,
+    [Description("NC-17")] NC17 = 5,
 }

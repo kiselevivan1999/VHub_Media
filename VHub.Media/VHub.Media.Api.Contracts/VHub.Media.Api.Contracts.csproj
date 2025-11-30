@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>VHub.Media.Api.Contracts</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>DevBeavers</Authors>
     <Description>Публичные API контракты сервиса медиаданных.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

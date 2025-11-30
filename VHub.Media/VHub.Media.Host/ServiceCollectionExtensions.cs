@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
+using KafkaFlow;
 using VHub.Media.Application.Files;
 
 namespace VHub.Media.Host;
@@ -13,8 +14,8 @@ public static class ServiceCollectionExtensions
             .Configure<S3Options>(configuration.GetSection("S3Options"))
             .AddScoped<IFilesHandler, FilesHandler>();
 
-    public static IServiceCollection AddAuthenticationAndAuthorizationService(this IServiceCollection services,
-    IConfiguration configuration)
+    public static IServiceCollection AddAuthenticationAndAuthorizationService(
+        this IServiceCollection services, IConfiguration configuration)
     {
         string authorizationIdentityServerUri = configuration.GetValue<string>("IdentityUrlName")!;
 
@@ -22,6 +23,7 @@ public static class ServiceCollectionExtensions
             JwtBearerDefaults.AuthenticationScheme, conf =>
             {
                 conf.Authority = authorizationIdentityServerUri;
+                conf.RequireHttpsMetadata = false;
 
                 conf.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -79,5 +81,27 @@ public static class ServiceCollectionExtensions
         });
 
         return services;
+    }
+
+    public static IApplicationBuilder UseKafkaBus(this IApplicationBuilder app, IHostApplicationLifetime lifetime)
+    {
+        var kafkaBus = app.ApplicationServices.CreateKafkaBus();
+
+        lifetime.ApplicationStarted.Register(async () =>
+        {
+            try
+            {
+                await kafkaBus.StartAsync(lifetime.ApplicationStopping);
+                Console.WriteLine("Kafka bus started successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to start Kafka bus: {ex.Message}");
+            }
+        });
+
+        lifetime.ApplicationStopping.Register(() => { kafkaBus.StopAsync().GetAwaiter().GetResult(); });
+
+        return app;
     }
 }

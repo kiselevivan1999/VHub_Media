@@ -24,5 +24,4 @@ public class EpisodeResponse
     /// Дата выхода.
     /// </summary>
     public DateOnly? ReleaseDate { get; set; }
-
 }

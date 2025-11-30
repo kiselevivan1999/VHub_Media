@@ -21,7 +21,6 @@ public class PersonInfo
     /// Тип персоны.
     /// </summary>
     [BsonRequired]
-    [BsonRepresentation(BsonType.String)]
     public PersonType Type { get; set; }
 
     /// <summary>
