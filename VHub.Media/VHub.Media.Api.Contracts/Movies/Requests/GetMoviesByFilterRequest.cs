@@ -12,7 +12,7 @@ public class GetMoviesByFilterRequest
     /// ID фильма.
     /// </summary>
     public string? Id { get; set; }
-    
+
     /// <summary>
     /// Название.
     /// </summary>
@@ -27,7 +27,7 @@ public class GetMoviesByFilterRequest
     /// Начальная дата выхода.
     /// </summary>
     public DateOnly? ReleaseDateFrom { get; set; }
-    
+
     /// <summary>
     /// Конечная дата выхода.
     /// </summary>

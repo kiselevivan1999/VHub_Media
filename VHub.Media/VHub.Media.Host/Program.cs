@@ -1,4 +1,3 @@
-using Mapster;
 using VHub.Media.Application;
 using VHub.Media.Host;
 
@@ -31,5 +30,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseKafkaBus(app.Lifetime);
 
 app.Run();

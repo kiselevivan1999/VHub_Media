@@ -41,11 +41,11 @@ public class CreateMovieRequest
     /// </summary>
     public string[] Countries { get; set; }
 
-	/// <summary>
-	/// Дата выхода.
-	/// </summary>
-	[Required]
-	public DateOnly ReleaseDate { get; set; }
+    /// <summary>
+    /// Дата выхода.
+    /// </summary>
+    [Required]
+    public DateOnly ReleaseDate { get; set; }
 
     /// <summary>
     /// Бюджет.
@@ -78,30 +78,30 @@ public class CreateMovieRequest
     /// </summary>
     public bool? IsSerial { get; set; }
 
-	/// <summary>
-	/// Сезоны.
-	/// </summary>
-	public SeasonResponse[]? Seasons{ get; set; }
+    /// <summary>
+    /// Сезоны.
+    /// </summary>
+    public SeasonResponse[]? Seasons { get; set; }
 
-	/// <summary>
-	/// Путь к постеру.
-	/// </summary>
-	[Required]
+    /// <summary>
+    /// Путь к постеру.
+    /// </summary>
+    [Required]
     public string PosterPath { get; set; }
 
-	/// <summary>
-	/// Путь к трейлеру.
-	/// </summary>
-	public string? TrailerPath { get; set; }
+    /// <summary>
+    /// Путь к трейлеру.
+    /// </summary>
+    public string? TrailerPath { get; set; }
 
     /// <summary>
     /// Платформы.
     /// </summary>
     public string[]? Platforms { get; set; }
 
-	/// <summary>
-	/// Персоны, к которым относится этот фильм.
-	/// </summary>
-	[Required, MinLength(1)]
-	public PersonInfoResponse[] Persons { get; set; }
+    /// <summary>
+    /// Персоны, к которым относится этот фильм.
+    /// </summary>
+    [Required, MinLength(1)]
+    public PersonInfoResponse[] Persons { get; set; }
 }

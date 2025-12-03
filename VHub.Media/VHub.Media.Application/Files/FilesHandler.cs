@@ -13,11 +13,10 @@ public class FilesHandler : IFilesHandler
     private readonly IAmazonS3 _s3Client;
     private readonly string _bucketName;
     private readonly S3Options _s3Options;
-    
 
     public FilesHandler(IOptions<S3Options> s3Options)
     {
-       _s3Options = s3Options?.Value ?? throw new ArgumentNullException(nameof(s3Options));
+        _s3Options = s3Options?.Value ?? throw new ArgumentNullException(nameof(s3Options));
         _bucketName = _s3Options.BucketName;
 
         var config = new AmazonS3Config
@@ -34,14 +33,15 @@ public class FilesHandler : IFilesHandler
         );
     }
 
-    public async Task<string> UploadFileAsync(IFormFile file, CancellationToken cancellationToken, string? prefix = null)
+    public async Task<string> UploadFileAsync(IFormFile file, CancellationToken cancellationToken,
+        string? prefix = null)
     {
-        var key = string.IsNullOrEmpty(prefix) 
+        var key = string.IsNullOrEmpty(prefix)
             ? $"{Guid.NewGuid()}_{file.FileName}"
             : $"{prefix}/{Guid.NewGuid()}_{file.FileName}";
 
         await using var stream = file.OpenReadStream();
-        
+
         var request = new PutObjectRequest
         {
             BucketName = _bucketName,

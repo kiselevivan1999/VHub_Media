@@ -51,7 +51,8 @@ public class MoviesController : ControllerBase, IMoviesController
         [FromBody] GetMoviesByFilterRequest filter, CancellationToken cancellationToken)
     {
         var result = await _handler.GetMoviesByFilterAsync(
-            filter.Adapt<VHub.Media.Application.Contracts.Movies.Requests.GetMoviesByFilterRequest>(), cancellationToken);
+            filter.Adapt<VHub.Media.Application.Contracts.Movies.Requests.GetMoviesByFilterRequest>(),
+            cancellationToken);
         return result.Adapt<List<GetMovieResponse>>();
     }
 

@@ -24,9 +24,9 @@ public class Season
     /// </summary>
     public string? OriginalName { get; set; }
 
-    [BsonRequired]
     /// <summary>
     /// Список серий.
     /// </summary>
+    [BsonRequired]
     public Episode[] Episodes { get; set; }
 }

@@ -26,8 +26,8 @@ public class MongoDbMoviesFixture
         DbContext = new MongoDbContext(Configuration);
         SeedData();
     }
-    
-        private void SeedData()
+
+    private void SeedData()
     {
         DbContext.Movies.DeleteMany(Builders<Movie>.Filter.Empty);
 

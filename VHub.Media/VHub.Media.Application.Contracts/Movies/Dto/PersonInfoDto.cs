@@ -1,6 +1,6 @@
 ﻿using VHub.Media.Common.Enums;
 
-namespace VHub.Media.Common.Dto;
+namespace VHub.Media.Application.Contracts.Movies.Dto;
 
 /// <summary>
 /// Информация о персоне.

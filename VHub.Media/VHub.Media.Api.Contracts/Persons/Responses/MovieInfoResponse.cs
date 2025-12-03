@@ -1,4 +1,6 @@
-﻿namespace VHub.Media.Api.Contracts.Persons.Responses;
+﻿using VHub.Media.Api.Contracts.Movies.Enums;
+
+namespace VHub.Media.Api.Contracts.Persons.Responses;
 
 /// <summary>
 /// Информация о фильме.

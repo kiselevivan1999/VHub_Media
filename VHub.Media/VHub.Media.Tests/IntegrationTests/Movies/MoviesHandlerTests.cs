@@ -1,7 +1,9 @@
 using FluentAssertions;
+using Moq;
 using VHub.Media.Application.Contracts.Movies.Dto;
 using VHub.Media.Application.Contracts.Movies.Requests;
 using VHub.Media.Application.Movies.Handlers;
+using VHub.Media.Application.Movies.Producers;
 using VHub.Media.Application.Movies.Repositories;
 using VHub.Media.Tests.Infrastructure;
 using Xunit;
@@ -16,7 +18,8 @@ public class MoviesHandlerTests : IClassFixture<MongoDbMoviesFixture>
     public MoviesHandlerTests(MongoDbMoviesFixture moviesFixture)
     {
         var repository = new MoviesRepository(moviesFixture.DbContext, moviesFixture.Configuration);
-        _handler = new MoviesHandler(repository);
+        var producerMock = new Mock<IMovieCreatedProducer>();
+        _handler = new MoviesHandler(repository, producerMock.Object);
     }
 
     [Theory]

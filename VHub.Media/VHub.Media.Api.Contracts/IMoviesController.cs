@@ -5,7 +5,6 @@ using VHub.Media.Api.Contracts.Movies.Responses;
 
 namespace VHub.Media.Api.Contracts;
 
-
 [BasePath("media/movies")]
 public interface IMoviesController
 {
